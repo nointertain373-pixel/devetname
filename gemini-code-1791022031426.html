@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mirməmməd & Nərmin — Toy Dəvətnaməsi</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 🎨 LOKAL ŞRİFT: Angelia Beauty.ttf */
+        @font-face {
+            font-family: 'Angelia Beauty';
+            src: url('Angelia Beauty.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        :root {
+            --bg-color: #f7f4ee;
+            --card-bg: #ffffff;
+            --primary-gold: #c5a059;
+            --gold-light: #e6d2aa;
+            --envelope-bg: #f2ece1;
+            --envelope-flap: #e8e0d0;
+            --text-main: #332d29;
+            --text-muted: #7d7571;
+            --border-color: #eee7dd;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px 15px;
+            overflow-x: hidden;
+            background-image: radial-gradient(rgba(197, 160, 89, 0.08) 1px, transparent 1px);
+            background-size: 24px 24px;
+            touch-action: pan-x pan-y;
+        }
+
+        .wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 420px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* ✉️ ZƏRF STİLİ */
+        .envelope-wrapper {
+            position: absolute;
+            width: 100%;
+            height: 380px;
+            background-color: var(--envelope-bg);
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            perspective: 1000px;
+            border: 1px solid #e3dbc3;
+            transition: transform 0.6s ease, opacity 0.6s ease;
+            z-index: 5;
+        }
+
+        .envelope-wrapper:hover {
+            transform: translateY(-5px);
+        }
+
+        .envelope-pocket {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--envelope-bg);
+            border-radius: 12px;
+            clip-path: polygon(0 0, 50% 45%, 100% 0, 100% 100%, 0 100%);
+            z-index: 3;
+            border-top: 1px solid var(--gold-light);
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--envelope-flap);
+            clip-path: polygon(0 0, 100% 0, 50% 50%);
+            transform-origin: top;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 4;
+            border-bottom: 1px solid var(--gold-light);
+        }
+
+        /* 🏵️ MUM MÖHÜR (WAX SEAL) */
+        .seal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 88px;
+            height: 88px;
+            background: radial-gradient(circle at 30% 30%, #f3e0aa 0%, #d4af37 40%, #8a640f 90%);
+            border-radius: 50%;
+            z-index: 5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.22), inset 0 2px 4px rgba(255, 255, 255, 0.4), inset 0 -3px 6px rgba(0, 0, 0, 0.4);
+            border: 1px solid #b89228;
+            transition: transform 0.3s ease;
+        }
+
+        .envelope-wrapper:hover .seal {
+            transform: translate(-50%, -50%) scale(1.04);
+        }
+
+        .seal-inner {
+            position: relative;
+            width: 76px;
+            height: 76px;
+            border: 1px dashed rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Angelia Beauty', cursive;
+            color: #ffffff;
+            font-size: 2.2rem;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            letter-spacing: 4px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.35);
+            padding-top: 2px;
+            padding-left: 4px;
+        }
+
+        .click-hint {
+            position: absolute;
+            bottom: 25px;
+            width: 100%;
+            text-align: center;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            z-index: 5;
+            animation: pulse 2s infinite;
+        }
+
+        /* 📜 DƏVƏTNAMƏ KARTI */
+        .invitation-card {
+            position: relative;
+            width: 100%;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+            border: 1px solid var(--border-color);
+            text-align: center;
+            z-index: 2;
+            opacity: 0;
+            transform: scale(0.85);
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .invitation-card::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid rgba(197, 160, 89, 0.25);
+            border-radius: 14px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* ✨ İŞILTI SAHƏSİ */
+        .sparkles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            clip-path: polygon(50% 0%, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0% 50%, 38% 38%);
+            animation: sunSparkle 4s infinite ease-in-out;
+            will-change: transform, opacity, filter;
+        }
+
+        @keyframes sunSparkle {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 0;
+                filter: opacity(0);
+            }
+            30% {
+                transform: scale(1.15) rotate(90deg);
+                opacity: 0.95;
+                filter: opacity(1);
+            }
+            70% {
+                transform: scale(0.5) rotate(180deg);
+                opacity: 0.2;
+                filter: opacity(0.2);
+            }
+            85%, 100% {
+                transform: scale(0) rotate(270deg);
+                opacity: 0;
+                filter: opacity(0);
+            }
+        }
+
+        /* 🤍 AĞ VƏ KREM RƏNGLİ ZƏRİF LƏÇƏKLƏR (ELEGANT PETALS) */
+        .cream-petal {
+            position: fixed;
+            pointer-events: none;
+            opacity: 0.88;
+            animation: creamPetalFall 4.5s forwards linear;
+            z-index: 9999;
+            will-change: transform, opacity;
+        }
+
+        .petal-style-1 {
+            width: 15px;
+            height: 11px;
+            border-radius: 60% 40% 60% 40% / 40% 60% 40% 60%;
+            background: linear-gradient(135deg, #ffffff 0%, #f7f1e3 65%, #e2d2b5 100%);
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
+        }
+
+        .petal-style-2 {
+            width: 13px;
+            height: 15px;
+            border-radius: 50% 50% 20% 50% / 60% 40% 40% 40%;
+            background: linear-gradient(120deg, #fffcf5 0%, #f0e4cc 65%, #d4be99 100%);
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
+        }
+
+        .petal-style-3 {
+            width: 16px;
+            height: 12px;
+            border-radius: 80% 20% 50% 50% / 50% 50% 30% 70%;
+            background: linear-gradient(150deg, #ffffff 0%, #eadcc2 70%, #c4ab80 100%);
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
+        }
+
+        @keyframes creamPetalFall {
+            0% {
+                transform: translate(0, 0) scale(1) rotate(var(--start-rot));
+                opacity: 0.9;
+            }
+            33% {
+                transform: translate(var(--sway1), 90px) scale(0.98) rotate(var(--mid-rot1));
+            }
+            66% {
+                transform: translate(var(--sway2), 180px) scale(1.02) rotate(var(--mid-rot2));
+                opacity: 0.75;
+            }
+            100% {
+                transform: translate(var(--end-x), 280px) scale(0.95) rotate(var(--end-rot));
+                opacity: 0;
+            }
+        }
+
+        /* ANIMASIYA KLASLARI */
+        .wrapper.open .envelope-flap {
+            transform: rotateX(180deg);
+        }
+
+        .wrapper.open .seal,
+        .wrapper.open .click-hint {
+            display: none !important;
+        }
+
+        .wrapper.open .envelope-wrapper {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s;
+            pointer-events: none;
+        }
+
+        .wrapper.open .invitation-card {
+            opacity: 1;
+            transform: scale(1);
+            z-index: 10;
+            pointer-events: auto;
+            transition-delay: 0.2s;
+        }
+
+        .monogram {
+            font-family: 'Angelia Beauty', cursive;
+            font-size: 1.6rem;
+            color: var(--primary-gold);
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            display: inline-block;
+            border-bottom: 1px solid var(--gold-light);
+            padding-bottom: 4px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .tagline {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            font-weight: 500;
+            position: relative;
+            z-index: 3;
+        }
+
+        .names {
+            font-family: 'Angelia Beauty', cursive;
+            font-size: 3.8rem;
+            color: var(--primary-gold);
+            line-height: 1.1;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 20px 0;
+            position: relative;
+            z-index: 3;
+        }
+
+        .divider-line {
+            height: 1px;
+            width: 35px;
+            background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+        }
+
+        .divider-symbol {
+            color: var(--primary-gold);
+            font-size: 0.75rem;
+        }
+
+        .invitation-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-style: italic;
+            line-height: 1.5;
+            color: var(--text-main);
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .date-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.7rem;
+            font-weight: 600;
+            color: var(--text-main);
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .time-text {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            margin-top: 3px;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 3;
+        }
+
+        .venue-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--primary-gold);
+            margin-top: 15px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 25px 0;
+            position: relative;
+            z-index: 3;
+        }
+
+        .countdown-item {
+            border: 1px solid var(--border-color);
+            background: #faf8f5;
+            border-radius: 10px;
+            padding: 8px 4px;
+            width: 62px;
+        }
+
+        .countdown-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--primary-gold);
+        }
+
+        .countdown-label {
+            font-size: 0.58rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 13px 18px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--primary-gold);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-gold);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(197, 160, 89, 0.25);
+        }
+
+        .footer-note {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.95rem;
+            font-style: italic;
+            color: var(--text-muted);
+            margin-top: 25px;
+            position: relative;
+            z-index: 3;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper" id="invitationWrapper">
+    
+    <!-- ✉️ ZƏRF -->
+    <div class="envelope-wrapper" onclick="openEnvelope()">
+        <div class="envelope-flap"></div>
+        <div class="envelope-pocket"></div>
+        
+        <div class="seal">
+            <div class="seal-inner">NM</div>
+        </div>
+
+        <div class="click-hint">Dəvətnaməni açmaq üçün toxunun</div>
+    </div>
+
+    <!-- 📜 DƏVƏTNAMƏ KARTI -->
+    <div class="invitation-card">
+        
+        <!-- ✨ İŞILTI SAHƏSİ -->
+        <div class="sparkles-container" id="sparklesContainer"></div>
+
+        <div class="monogram">N&M</div>
+        <div class="tagline">TOY DƏVƏTNAMƏSİ</div>
+        
+        <div class="names">Nərmin &<br>Mirməmməd</div>
+
+        <div class="divider">
+            <div class="divider-line"></div>
+            <div class="divider-symbol">✦</div>
+            <div class="divider-line"></div>
+        </div>
+
+        <p class="invitation-text">
+            Ən özəl günümüzdə yanımızda olmağınız bizə böyük xoşbəxtlik verər.
+        </p>
+
+        <div class="event-details">
+            <div class="date-title">17 OKTYABR 2026</div>
+            <div class="time-text">SAAT 18:00</div>
+            <div class="venue-title">Qaradağ Şadlıq Sarayı</div>
+        </div>
+
+        <div class="countdown" id="countdown">
+            <div class="countdown-item">
+                <div class="countdown-number" id="days">00</div>
+                <div class="countdown-label">Gün</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="hours">00</div>
+                <div class="countdown-label">Saat</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="minutes">00</div>
+                <div class="countdown-label">Dəqiqə</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="seconds">00</div>
+                <div class="countdown-label">Saniyə</div>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <a href="https://www.google.com/maps/search/?api=1&query=Qaradag+Sadliq+Sarayi" target="_blank" class="btn btn-outline">
+                📍 GOOGLE MAPS İLƏ BAX
+            </a>
+            <a href="https://waze.com/ul?q=Qaradag%20Sadliq%20Sarayi" target="_blank" class="btn btn-outline">
+                🚗 WAZE İLƏ UNVANA GET
+            </a>
+        </div>
+
+        <div class="footer-note">
+            Təşrifinizlə günümüzə dəyər qatacaqsınız.
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function openEnvelope() {
+        const wrapper = document.getElementById('invitationWrapper');
+        wrapper.classList.add('open');
+        createEdgeSunSparkles();
+    }
+
+    const elegantWhiteBgPalettes = [
+        {
+            bg: "radial-gradient(circle, #ffffff 0%, #f4c2c2 45%, #e08b97 85%, transparent 100%)",
+            shadow: "drop-shadow(0 0 7px rgba(224, 139, 151, 0.6)) drop-shadow(0 0 12px rgba(244, 194, 194, 0.75))"
+        },
+        {
+            bg: "radial-gradient(circle, #ffffff 0%, #c8d6af 45%, #9caf88 85%, transparent 100%)",
+            shadow: "drop-shadow(0 0 7px rgba(156, 175, 136, 0.6)) drop-shadow(0 0 12px rgba(200, 214, 175, 0.75))"
+        },
+        {
+            bg: "radial-gradient(circle, #ffffff 0%, #f2e3c6 45%, #d4af37 85%, transparent 100%)",
+            shadow: "drop-shadow(0 0 7px rgba(212, 175, 55, 0.6)) drop-shadow(0 0 12px rgba(242, 227, 198, 0.75))"
+        },
+        {
+            bg: "radial-gradient(circle, #ffffff 0%, #d8cbe5 45%, #aa96da 85%, transparent 100%)",
+            shadow: "drop-shadow(0 0 7px rgba(170, 150, 218, 0.6)) drop-shadow(0 0 12px rgba(216, 203, 229, 0.75))"
+        },
+        {
+            bg: "radial-gradient(circle, #ffffff 0%, #c4dfe6 45%, #66a5ad 85%, transparent 100%)",
+            shadow: "drop-shadow(0 0 7px rgba(102, 165, 173, 0.6)) drop-shadow(0 0 12px rgba(196, 223, 230, 0.75))"
+        }
+    ];
+
+    function createEdgeSunSparkles() {
+        const container = document.getElementById('sparklesContainer');
+        const sparkleCount = 20;
+
+        for (let i = 0; i < sparkleCount; i++) {
+            const sparkle = document.createElement('div');
+            sparkle.classList.add('sparkle');
+
+            let posX, posY;
+
+            if (Math.random() < 0.5) {
+                posX = Math.random() * 90 + 5;
+                posY = Math.random() < 0.5 ? (Math.random() * 15 + 3) : (Math.random() * 13 + 82);
+            } else {
+                posX = Math.random() < 0.5 ? (Math.random() * 15 + 3) : (Math.random() * 13 + 82);
+                posY = Math.random() * 90 + 5;
+            }
+
+            const randomPalette = elegantWhiteBgPalettes[Math.floor(Math.random() * elegantWhiteBgPalettes.length)];
+            
+            const size = Math.random() * 7 + 9; 
+            const duration = Math.random() * 2 + 3.5; 
+            const delay = Math.random() * 3; 
+
+            sparkle.style.background = randomPalette.bg;
+            sparkle.style.filter = randomPalette.shadow;
+            sparkle.style.width = `${size}px`;
+            sparkle.style.height = `${size}px`;
+            sparkle.style.left = `${posX}%`;
+            sparkle.style.top = `${posY}%`;
+            sparkle.style.animationDelay = `${delay}s`;
+            sparkle.style.animationDuration = `${duration}s`;
+
+            container.appendChild(sparkle);
+        }
+    }
+
+    /* 🤍 AĞ VƏ KREM RƏNGLİ ZƏRİF LƏÇƏKLƏR (ELEGANT PETALS GENERATOR) */
+    let throttleTimeout = false;
+
+    function spawnCreamPetal(x, y) {
+        const petal = document.createElement('div');
+        petal.classList.add('cream-petal');
+
+        // 3 fərqli təbii ləçək stili
+        const styleIndex = Math.floor(Math.random() * 3) + 1;
+        petal.classList.add(`petal-style-${styleIndex}`);
+
+        // Xaotik trayektoriya və fırlanmalar
+        const sway1 = (Math.random() - 0.5) * 45;
+        const sway2 = sway1 + (Math.random() - 0.5) * 55;
+        const endX = sway2 + (Math.random() - 0.5) * 40;
+        
+        const startRot = Math.random() * 360;
+        const midRot1 = startRot + (Math.random() - 0.5) * 180;
+        const midRot2 = midRot1 + (Math.random() - 0.5) * 180;
+        const endRot = midRot2 + (Math.random() - 0.5) * 180;
+
+        petal.style.setProperty('--sway1', `${sway1}px`);
+        petal.style.setProperty('--sway2', `${sway2}px`);
+        petal.style.setProperty('--end-x', `${endX}px`);
+        petal.style.setProperty('--start-rot', `${startRot}deg`);
+        petal.style.setProperty('--mid-rot1', `${midRot1}deg`);
+        petal.style.setProperty('--mid-rot2', `${midRot2}deg`);
+        petal.style.setProperty('--end-rot', `${endRot}deg`);
+
+        const offsetX = (Math.random() - 0.5) * 20;
+        const offsetY = (Math.random() - 0.5) * 10;
+
+        petal.style.left = `${x + offsetX}px`;
+        petal.style.top = `${y + offsetY}px`;
+
+        document.body.appendChild(petal);
+
+        setTimeout(() => {
+            petal.remove();
+        }, 4500);
+    }
+
+    window.addEventListener('touchmove', (e) => {
+        if (e.touches && e.touches[0]) {
+            if (!throttleTimeout) {
+                spawnCreamPetal(e.touches[0].clientX, e.touches[0].clientY);
+                throttleTimeout = true;
+                setTimeout(() => {
+                    throttleTimeout = false;
+                }, 130);
+            }
+        }
+    }, { passive: true });
+
+    window.addEventListener('touchstart', (e) => {
+        if (e.touches && e.touches[0]) {
+            spawnCreamPetal(e.touches[0].clientX, e.touches[0].clientY);
+        }
+    }, { passive: true });
+
+    window.addEventListener('mousemove', (e) => {
+        if (e.buttons === 1) {
+            if (!throttleTimeout) {
+                spawnCreamPetal(e.clientX, e.clientY);
+                throttleTimeout = true;
+                setTimeout(() => {
+                    throttleTimeout = false;
+                }, 130);
+            }
+        }
+    });
+
+    const targetDate = new Date("2026-10-17T18:00:00").getTime();
+
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const difference = targetDate - now;
+
+        if (difference > 0) {
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+        } else {
+            document.getElementById("countdown").innerHTML = "<p style='color: var(--primary-gold); font-family: Cormorant Garamond, serif; font-size: 1.2rem;'>Xoş gəlmisiniz!</p>";
+        }
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+</script>
+
+</body>
+</html>
